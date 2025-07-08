@@ -1,0 +1,94 @@
+########################
+#### Initialization #### 
+units           metal
+dimension       3
+boundary        p p p
+atom_style      atomic
+
+read_data start_config.dat
+pair_style hybrid/overlay grace/fs dispersion/d3 bj pbe 12.0 12.0
+pair_coeff * * grace/fs ../FS_model_i3.yaml Li B N O F Na Mg Al Si P S Cl K Ca Ge Br I
+pair_coeff * * dispersion/d3 Li B N O F Na Mg Al Si P S Cl K Ca Ge Br I
+
+neigh_modify one 3000
+
+variable tstart equal 3000      # Initial temperature
+variable tmin   equal 1000       # Minimum temperature
+variable tstep  equal 100       # Cooling step
+variable runlen equal 5000      # 10 ps if timestep = 0.002 ps
+
+min_style cg
+minimize 1.0e-6 1.0e-6 10000 10000
+
+write_data relax.dat
+
+##########################
+#### Reinitialization #### 
+label loop_start
+clear
+
+units           metal
+dimension       3
+boundary        p p p
+atom_style      atomic
+
+read_data relax.dat
+pair_style hybrid/overlay grace/fs dispersion/d3 bj pbe 12.0 12.0
+pair_coeff * * grace/fs ../FS_model_i3.yaml Li B N O F Na Mg Al Si P S Cl K Ca Ge Br I
+pair_coeff * * dispersion/d3 Li B N O F Na Mg Al Si P S Cl K Ca Ge Br I
+
+neigh_modify one 3000
+
+timestep 0.002
+thermo    1000
+thermo_style   custom step temp pe etotal press vol density
+
+
+########################################
+#### NVT stepwise quench, MSD check ####
+
+variable t equal ${tstart}
+compute         msd all msd
+velocity all create ${t} 4928456 rot yes dist gaussian
+
+fix 1 all nvt temp ${t} ${t} 0.2
+run ${runlen}
+unfix 1
+variable msdval equal c_msd[4]
+print "### MSD = ${msdval}"
+
+write_data relax.dat
+
+# Check condition: if MSD < box length -> done
+if "${msdval} < 225" then "jump SELF quench"
+
+variable tstart equal ${tstart}-${tstep}
+if "${tstart} < ${tmin}" then "jump SELF done"
+
+jump SELF loop_start
+
+
+###########################
+#### NPT linear quench #### 
+label quench
+
+variable quench_time equal (${t}-300)*50
+
+fix 1 all npt temp ${t} ${t} 0.2 iso 0 0 2
+run 5000
+unfix 1
+
+fix 1 all npt temp ${t} 300 0.2 iso 0 0 2
+run ${quench_time}
+unfix 1
+
+fix 1 all npt temp 300 300 0.2 iso 0 0 2
+run 5000
+unfix 1
+
+dump stats_dump all custom 500 md_stats.lammpstrj id type x y z
+fix 1 all nvt temp 300 300 0.2
+run 5000
+unfix 1
+
+write_data 300K_.dat

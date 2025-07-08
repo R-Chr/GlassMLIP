@@ -1,0 +1,19 @@
+chemical_symbols:
+- Al
+- B
+- Br
+- Ca
+- Cl
+- F
+- Ge
+- I
+- K
+- Li
+- Mg
+- N
+- Na
+- O
+- P
+- S
+- Si
+cutoff: 6.5

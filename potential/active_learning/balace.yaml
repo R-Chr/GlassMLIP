@@ -1,0 +1,51 @@
+# This is an example of the balace.yaml file. It is in YAML format and is only for reference.
+database: null
+
+# Mandatory parameters
+lammps_command: <##> # Path to LAMMPS executable
+launchpad: <##> # Path to launchpad executable
+potential: grace
+initial_potential: <##> # Path to initial potential file
+struc_gen_params:
+  scheme: random
+  atoms:
+    modifiers: ["Li", "Na", "K", "Mg", "Ca"] # List of modifier atoms
+    formers: ["B", "Al", "Si", "Ge", "P"] # List of networkformer atoms
+    anions: ["O", "S", "N", "F", "Cl", "Br", "I"] # List of anion atoms
+  target_atoms: 100
+  num_structures: 1000
+  weights:
+    num_mod_weights: [0.3, 0.55, 0.15, 0]
+    num_former_weights: [0.05, 0.65, 0.3, 0]
+    num_anion_weights: [0, 0.7, 0.3, 0]
+    bias_modifiers: [1, 5, 1, 1, 1]
+    bias_formers: [1, 1, 1, 1, 1]
+    bias_anions: [10, 10, 4, 1, 1, 1, 1]
+
+# Optional parameters
+
+strain_params:
+  num_strains: 3
+  max_strain: 0.1
+
+lammps_params:
+  max_temp: 5000
+  min_temp: 0 
+  cooling_rate: 100
+  sample_rate: 5000
+  equilibration_steps: 5000
+  seed: 1
+  c_min: 2.5
+  c_max: 30
+  gamma_sample_rate: 5
+  timestep: 0.002
+
+selection_params:
+  max_gamma_structures: 10000
+  pace_select: True
+  force_glass_structures: True
+
+incar_settings:
+  NSIM: 32    # Include if you want to change incar settings, be careful this is untested and many parameters need to be included
+
+#qadapter_file: "YOUR_QADAPTER_PATH_HERE" # Include if you want to automate queueing of jobs for the .run() method, This is currently has some issues and is not advised.

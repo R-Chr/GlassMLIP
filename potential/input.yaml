@@ -1,0 +1,49 @@
+seed: 6
+cutoff: 6.5
+
+data:
+  filename: train.pckl.gzip
+  test_filename: test.pckl.gzip
+  reference_energy: 0
+  max_workers: 4
+
+potential:
+  elements: ['Al', 'B', 'Br', 'Ca', 'Cl', 'F', 'Ge', 'I', 'K', 'Li', 'Mg', 'N', 'Na', 'O', 'P', 'S', 'Si']
+  preset: FS
+  kwargs: {basis_type: "SBessel", n_rad_base: 20, embedding_size: 64, max_order: 4, n_rad_max: [20, 15, 10, 5], lmax: [5, 5, 4, 3], fs_parameters: [[1.0, 1.0], [1.0, 0.5], [1.0, 2], [1.0, 0.75]]}
+  scale: True
+
+fit:
+  loss: {
+    energy: { weight: 1, type: huber , delta: 0.01 },
+    forces: { weight: 5, type: huber , delta: 0.01 },
+    stress: { weight: 0.1, type: huber, delta: 0.01},
+  }
+
+  maxiter: 2000
+
+  optimizer: Adam
+  opt_params: {
+            learning_rate: 0.01,
+            amsgrad: True,
+            use_ema: True,
+            ema_momentum: 0.99,
+            weight_decay: null,
+            clipvalue: 1.0,
+        }
+
+  learning_rate_reduction: { patience: 5, factor: 0.98, min: 5.0e-4, stop_at_min: True, resume_lr: True, }
+  compute_convex_hull: False
+  batch_size: 64 # Important hyperparameter for Adam and irrelevant (but must be) for L-BFGS-B
+  test_batch_size: 64 # test batch size (optional)
+
+  jit_compile: True
+  eval_init_stats: True # to evaluate initial metrics
+
+  train_max_n_buckets: 30 # max number of buckets (group of batches of same shape) in train set
+  test_max_n_buckets: 10 # same for test
+
+  checkpoint_freq: 2
+  progressbar: True
+  train_shuffle: True
+
