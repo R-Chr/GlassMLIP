@@ -1,5 +1,5 @@
 
-# Design Principles of Sodium-Ion Conduction in Glass Electrolytes from Machine Learning
+# Accelerating the Discovery of High-Conductivity Glass Electrolytes via Machine Learning
 
 **Rasmus Christensen <sup>1*</sup>, Morten M. Smedskjaer<sup>1</sup>**
 
@@ -22,13 +22,6 @@ Folders containing the validation glass structures from the Grace/FS interatomic
 - `300K_.dat` is the glass structure at 300K in the LAMMPS data format.
 - `md_stats.lammpstrj` is the final trajectory file at 300K from after quenching and relaxation.
 
-#### `Diffusion_dataset`
-Folder contains dataset for the diffusion screening of glass electrolytes.
-- `diffusion.pckl.gzip` is the diffusion dataset generated of all generated glasses.
-  - Contains atomic structures as `ase.Atoms` objects with corresponding diffusion properties, and calculated features for diffusion prediction.
-  - Load using: `df = pandas.read_pickle('diffusion.pckl.gzip', compression='gzip')`
-  
-
 #### `potential`
 Potential files for the Grace/FS potential and training data and input files
 
@@ -39,20 +32,25 @@ Potential files for the Grace/FS potential and training data and input files
  - `run.py` script for executing workflow
 
 
-#### `Glass25`
-- `train.pckl.gzip` and `test.pckl.gzip` is the Glass25 training dataset generated after all iterations of active learning. 
-  - Contains atomic structures as `ase.Atoms` objects with corresponding energies  forces, and stresses.
-  - Load using: `df = pandas.read_pickle('train.pckl.gzip', compression='gzip')`
-  
+### Data available from figshare
+Additional data used in the paper, including the diffusion dataset and the Glass25 training dataset is available from [figshare](https://doi.org/10.6084/m9.figshare.29533097.v1). (https://doi.org/10.6084/m9.figshare.29533097.v1)
+
+- `Diffusion_dataset`
+  - `diffusion.pckl.gzip` is the diffusion dataset generated of all generated glasses.
+    - Contains atomic structures as `ase.Atoms` objects with corresponding diffusion properties, and calculated features for diffusion prediction.
+    - Load using: `df = pandas.read_pickle('diffusion.pckl.gzip', compression='gzip')`
+- `Glass25`
+  - `train.pckl.gzip` and `test.pckl.gzip` is the Glass25 training dataset generated after all iterations of active learning. 
+    - Contains atomic structures as `ase.Atoms` objects with corresponding energies  forces, and stresses.
+    - Load using: `df = pandas.read_pickle('train.pckl.gzip', compression='gzip')`
 
 
-
-### Notes on Grace/FS potential
+## Notes on Grace/FS potential
 Information about the Grace/FS potential can be found in its [documentation](https://www.lammps.org/doc/pair_grace.html).
 
 (As of the 8th of July 2025) To run the potential in LAMMPS with D3 dispersion corrections the Grace/FS potential implementation needs to be ported to a newer version of LAMMPS (Version: 4_February_2025 or newer)  than provided by the Gracemaker team. This is easily done by transfering the gracemaker implementation to the most current version of LAMMPS.
 
-#### INSTALL
+### INSTALL
 To install the new version of LAMMPS, follow the instructions in the gracemaker [documentation](https://gracemaker.readthedocs.io/en/latest/gracemaker/install/#lammps-with-grace).
 
 For CPUs, the following commands should be used:
@@ -79,7 +77,7 @@ cmake -DCMAKE_BUILD_TYPE=Release -D BUILD_MPI=ON -DPKG_ML-PACE=ON -DPKG_MC=ON -D
 cmake --build . -- -j 8
 ```
 
-#### USE POTENTIAL
+### USE POTENTIAL
 To use the potential in LAMMPS use the following commands:
 
 For CPUs, the following commands should be used:
@@ -106,15 +104,9 @@ pair_coeff * * grace ../saved_model Li B N O F Na Mg Al Si P S Cl K Ca Ge Br I
 pair_coeff * * dispersion/d3 Li B N O F Na Mg Al Si P S Cl K Ca Ge Br I
 ```
 
-
-
-
-
-
-
 ## Citation
 If you use this data or code in your research, please cite our paper:
-- Christensen R., Smedskjær MM. Design Principles of Sodium-Ion Conduction in Glass Electrolytes from Machine Learning. ChemRxiv. 2025; XXX  This content is a preprint and has not been peer-reviewed.
+- Christensen R., Smedskjær MM. Accelerating the Discovery of High-Conductivity Glass Electrolytes via Machine Learning. ChemRxiv. 2025; XXX  This content is a preprint and has not been peer-reviewed.
 
 ## Funding
 This work was supported by the Danish Data Science Academy, which in turn is funded by the Novo Nordisk Foundation (NNF21SA0069429) and VILLUM FONDEN (40516).
