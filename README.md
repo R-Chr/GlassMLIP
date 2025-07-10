@@ -28,7 +28,7 @@ Potential files for the Grace/FS potential and training data and input files
 - `FS_model_i3.yaml` and `saved_model` contain the parameters for the ACE potential, formated for the use with MPI on CPUs and Tensorflow on GPUs, respectively in `LAMMPS` and `ASE` . See `Notes on Grace/FS potential` for more information. 
 - `input.yaml` is the input yaml file used for the PACEMAKER framework for potential optimization.
 ##### `active_learning`
- - `balace.yaml` input file for running active learning workflow from the [vitrum package](https://vitrum.readthedocs.io/en/latest/). The active learning workflow employed here was run using this [Github commit](https://github.com/R-Chr/vitrum/commit/60774c191430c3f3f3a5b014876f027bc5194d77), and is not guaranteed to work with the newest vitrum version without changes to the input file.
+ - `balace.yaml` input file for running active learning workflow from the [vitrum package](https://vitrum.readthedocs.io/en/latest/). The active learning workflow employed here was run using this [Github commit](https://github.com/R-Chr/vitrum/commit/393454f573d4bae5f57cd9e23e926085838cccb0), and is not guaranteed to work with the newest vitrum version without changes to the input file.
  - `run.py` script for executing workflow
 
 
