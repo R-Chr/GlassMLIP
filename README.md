@@ -106,7 +106,7 @@ pair_coeff * * dispersion/d3 Li B N O F Na Mg Al Si P S Cl K Ca Ge Br I
 
 ## Citation
 If you use this data or code in your research, please cite our paper:
-- Christensen R., Smedskjær MM. Accelerating the Discovery of High-Conductivity Glass Electrolytes via Machine Learning. ChemRxiv. 2025; XXX  This content is a preprint and has not been peer-reviewed.
+- Christensen R., Smedskjær MM. Accelerating the Discovery of High-Conductivity Glass Electrolytes via Machine Learning. ChemRxiv. 2025; [DOI:10.26434/chemrxiv-2025-7csf2](https://doi.org/10.26434/chemrxiv-2025-7csf2)
 
 ## Funding
 This work was supported by the Danish Data Science Academy, which in turn is funded by the Novo Nordisk Foundation (NNF21SA0069429) and VILLUM FONDEN (40516).
