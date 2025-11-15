@@ -32,10 +32,10 @@ Potential files for the Grace/FS potential and training data and input files
  - `run.py` script for executing workflow
 
 #### `model_example`
-- `predictive_model.ipynb` Notebook containing the code used to train and test the predictive model used in the paper. Requires downloading the data from [figshare](https://doi.org/10.6084/m9.figshare.29533097.v1).
+- `predictive_model.ipynb` Notebook containing the code used to train and test the predictive model used in the paper. Requires downloading the data from [figshare](https://doi.org/10.6084/m9.figshare.29533097.v2).
 
 ### Data available from figshare
-Additional data used in the paper, including the diffusion dataset and the Glass25 training dataset is available from [figshare](https://doi.org/10.6084/m9.figshare.29533097.v1). (https://doi.org/10.6084/m9.figshare.29533097.v1)
+Additional data used in the paper, including the diffusion dataset and the Glass25 training dataset is available from [figshare](https://doi.org/10.6084/m9.figshare.29533097.v2). (https://doi.org/10.6084/m9.figshare.29533097.v2)
 
 - `Diffusion_dataset`
   - `diffusion.pckl.gzip` is the diffusion dataset generated of all generated glasses.
