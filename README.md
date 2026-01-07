@@ -50,8 +50,6 @@ Additional data used in the paper, including the diffusion dataset and the Glass
 ## Notes on Grace/FS potential
 Information about the Grace/FS potential can be found in its [documentation](https://gracemaker.readthedocs.io/en/latest/).
 
-(As of the 8th of July 2025) To run the potential in LAMMPS with D3 dispersion corrections the Grace/FS potential implementation needs to be ported to a newer version of LAMMPS (Version: 4_February_2025 or newer)  than provided by the Gracemaker team. This is easily done by transfering the gracemaker implementation to the most current version of LAMMPS.
-
 ### INSTALL
 To install the new version of LAMMPS, follow the instructions in the gracemaker [documentation](https://gracemaker.readthedocs.io/en/latest/gracemaker/install/#lammps-with-grace).
 
